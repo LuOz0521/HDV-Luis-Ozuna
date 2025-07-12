@@ -897,27 +897,13 @@
         }
         
         /* Mensajes de éxito/error */
-        #message-container {
-    position: fixed;
-    left: 50%;
-    bottom: 40px;
-    transform: translateX(-50%);
-    z-index: 99999;
-    min-width: 280px;
-    max-width: 90vw;
-    pointer-events: none;
-}
-
-.message {
-    display: block;
-    padding: 15px 25px;
-    border-radius: 8px;
-    text-align: center;
-    font-size: 1.1rem;
-    box-shadow: 0 8px 32px rgba(0,0,0,0.18);
-    animation: fadeIn 0.5s;
-    pointer-events: auto;
-}
+        .message {
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 8px;
+            text-align: center;
+            display: none;
+        }
         
         .success {
             background-color: rgba(46, 204, 113, 0.2);
@@ -968,13 +954,6 @@
             border:none;
             font-size:1rem;
             cursor:pointer;
-        }
-
-        @media (max-width: 600px) {
-          #success-modal .modal-content {
-            padding: 20px 10px;
-            font-size: 1rem;
-          }
         }
 
         .ripple {
@@ -1326,6 +1305,7 @@
                             <p>Disponible para temas laborales</p>
                             <p>8:00 AM - 6:00 PM</p>
                             <p>Puedes dejarme un mensaje por la sección correspondiente y me pondré en contacto contigo, muchas ¡Gracias!</p>
+                            <p>Por el momento no se notifica en pantalla que se envió el correo, pero si lo recibo (comprobado).</p>
                         </div>
                     </div>
                 </div>
@@ -1367,9 +1347,6 @@
             <p style="margin-top: 20px; color: #888;">Desarrollado con profesionalismo y dedicación</p>
         </div>
     </footer>
-
-    <!-- Toast flotante para mensajes -->
-    <div id="message-container" style="display:none;"></div>
 
     <!-- Modal de confirmación -->
     <div id="success-modal" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.5); z-index:99999; align-items:center; justify-content:center;">
@@ -1513,37 +1490,43 @@
             const closeModalBtn = document.getElementById('close-modal');
             
             contactForm.addEventListener('submit', function(e) {
-    e.preventDefault();
-
-    showMessage('¡Mensaje enviado correctamente! Me pondré en contacto contigo pronto.', 'success');
-
-    const formspreeEndpoint = 'https://formspree.io/f/manjrzwk';
-    const formData = new FormData(contactForm);
-
-    fetch(formspreeEndpoint, {
-        method: 'POST',
-        body: formData,
-        headers: {
-            'Accept': 'application/json'
-        }
-    })
-    .then(response => {
-        if (response.ok) {
-            contactForm.reset();
-            successModal.style.display = 'flex'; // Muestra el modal
-            showMessage('¡Mensaje enviado correctamente! Me pondré en contacto contigo pronto.', 'success'); // Muestra el mensaje
-        } else {
-            showMessage('Hubo un error al enviar el mensaje. Por favor, inténtalo de nuevo más tarde.', 'error');
-        }
-    })
-    .catch(error => {
-        showMessage('Error de red. Por favor, verifica tu conexión a internet.', 'error');
-    });
-});
-
-closeModalBtn.addEventListener('click', () => {
-  successModal.style.display = 'none';
-});
+                e.preventDefault();
+                
+                // Mostrar mensaje de envío
+                showMessage('Enviando mensaje...', 'success');
+                
+                // URL de Formspree (debes reemplazar con tu email)
+                const formspreeEndpoint = 'https://formspree.io/f/manjrzwk'; // ¡REEMPLAZA ESTO CON TU ENDPOINT!
+                
+                // Recopilar datos del formulario
+                const formData = new FormData(contactForm);
+                
+                // Enviar datos a Formspree
+                fetch(formspreeEndpoint, {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                })
+                .then(response => {
+                    if (response.ok) {
+                        showMessage('¡Gracias por tu mensaje! Me pondré en contacto contigo pronto.', 'success');
+                        contactForm.reset();
+                        // Mostrar modal de éxito
+                        successModal.style.display = 'flex';
+                    } else {
+                        showMessage('Hubo un error al enviar el mensaje. Por favor, inténtalo de nuevo más tarde.', 'error');
+                    }
+                })
+                .catch(error => {
+                    showMessage('Error de red. Por favor, verifica tu conexión a internet.', 'error');
+                });
+            });
+            
+            closeModalBtn.addEventListener('click', () => {
+              successModal.style.display = 'none';
+            });
             
             function showMessage(text, type) {
                 messageContainer.innerHTML = `<div class="message ${type}">${text}</div>`;
