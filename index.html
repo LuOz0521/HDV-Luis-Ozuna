@@ -1,0 +1,1468 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Hoja de Vida - Luis Ozuna Vizcaino | Administrador de Empresas</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Variables globales */
+        :root {
+            --primary: #FF6B6B; /* Coral */
+            --primary-variant: #FF8E8E;
+            --secondary: #4ECDC4; /* Turquesa */
+            --secondary-dark: #2A9D8F;
+            --accent: #FFD166; /* Amarillo */
+            --bg: #0f0f0f; /* Fondo oscuro */
+            --surface: #1e1e1e; /* Tarjetas */
+            --on-bg: #ffffff; /* Texto claro */
+            --on-surface: #e0e0e0;
+            --transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+        }
+        
+        /* Reset y estilos base */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html, body {
+            width: 100%;
+            height: 100%;
+            overflow-x: hidden;
+            scroll-behavior: smooth; /* Habilitar scroll suave nativo */
+        }
+        
+        body {
+            font-family: 'Montserrat', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--bg);
+            color: var(--on-bg);
+            line-height: 1.6;
+            overflow: hidden;
+            perspective: 1000px;
+        }
+        
+        /* Preloader con colores de la paleta */
+        #preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #0f0f0f, #0f0f0f);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 1.5s ease-out;
+        }
+        
+        .personal-logo {
+            font-family: 'Poppins', sans-serif;
+            font-size: 5rem;
+            font-weight: 700;
+            color: white;
+            text-transform: uppercase;
+            letter-spacing: 8px;
+            text-shadow: 0 0 30px rgba(255, 255, 255, 0.8);
+            margin-bottom: 30px;
+            animation: textGlow 1.5s infinite alternate;
+        }
+        
+        @keyframes textGlow {
+            from { text-shadow: 0 0 10px rgba(255, 255, 255, 0.8); }
+            to { text-shadow: 0 0 30px rgba(255, 255, 255, 0.8), 0 0 40px rgba(255, 255, 255, 0.8); }
+        }
+        
+        .loading-text {
+            color: white;
+            font-size: 1.2rem;
+            margin-top: 30px;
+            text-transform: uppercase;
+            letter-spacing: 5px;
+            opacity: 0;
+            animation: fadeInText 2s ease-in-out forwards;
+            animation-delay: 0.5s;
+        }
+        
+        @keyframes fadeInText {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        /* Animaciones clave */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 107, 107, 0.4); }
+            70% { transform: scale(1.05); box-shadow: 0 0 0 15px rgba(255, 107, 107, 0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 107, 107, 0); }
+        }
+        
+        @keyframes textGlow {
+            0% { text-shadow: 0 0 5px rgba(255, 255, 255, 0.3), 0 0 10px rgba(234, 228, 228, 0.851); }
+            50% { text-shadow: 0 0 15px rgba(226, 219, 219, 0.4), 0 0 20px rgba(226, 217, 217, 0.773); }
+            100% { text-shadow: 0 0 5px rgba(235, 230, 230, 0.3), 0 0 10px rgba(240, 234, 234, 0.81); }
+        }
+        
+        /* Contenedor principal */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        section {
+            padding: 100px 0;
+            position: relative;
+            overflow: hidden;
+            scroll-margin-top: 80px; /* Espacio para navegación */
+        }
+        
+        h1, h2, h3 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+        }
+        
+        h2 {
+            font-size: 2.8rem;
+            margin-bottom: 60px;
+            text-align: center;
+            position: relative;
+            display: inline-block;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 5px;
+            background: var(--secondary);
+            border-radius: 3px;
+        }
+        
+        /* Efectos de sección */
+        section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 10% 20%, rgba(78, 205, 196, 0.05) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(255, 107, 107, 0.05) 0%, transparent 20%);
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        /* Cabecera */
+        header {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            background: radial-gradient(ellipse at center, rgba(55, 0, 179, 0.2) 0%, rgba(18, 18, 18, 1) 70%);
+        }
+        
+        .creative-shape {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: var(--accent);
+            opacity: 0.1;
+            z-index: 0;
+            animation: float 12s ease-in-out infinite;
+        }
+        
+        .shape-1 {
+            top: 10%;
+            left: 10%;
+            width: 150px;
+            height: 150px;
+        }
+        
+        .shape-2 {
+            bottom: 15%;
+            right: 15%;
+            background: var(--secondary);
+            width: 120px;
+            height: 120px;
+        }
+        
+        .shape-3 {
+            top: 30%;
+            right: 20%;
+            background: var(--primary);
+            width: 80px;
+            height: 80px;
+        }
+        
+        /* Contenido de cabecera */
+        .header-content {
+            text-align: center;
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            padding: 0 20px;
+            opacity: 0;
+            transform: translateY(50px);
+            animation: fadeInUp 1.5s ease-out forwards;
+            animation-delay: 0.5s;
+        }
+        
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Foto de perfil */
+        .profile-pic {
+            width: 220px;
+            height: 220px;
+            border-radius: 50%;
+            margin: 0 auto 30px;
+            border: 5px solid var(--primary);
+            box-shadow: 
+                0 0 30px rgba(255, 107, 107, 0.2),
+                0 0 60px rgba(255, 107, 107, 0.1);
+            background: #2c2c2c;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            animation: 
+                float 6s ease-in-out infinite,
+                pulse 4s ease-in-out infinite;
+            transition: var(--transition);
+        }
+        
+        .profile-pic i {
+            font-size: 5rem;
+            color: var(--primary);
+        }
+        
+        .profile-pic::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                45deg, 
+                transparent, 
+                rgba(255, 107, 107, 0.1), 
+                transparent, 
+                rgba(78, 205, 196, 0.1), 
+                transparent
+            );
+            animation: rotate 8s linear infinite;
+            z-index: -1;
+        }
+        
+        /* Texto principal */
+        h1 {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 20px rgba(255, 107, 107, 0.2);
+            animation: textGlow 3s ease-in-out infinite;
+            transition: var(--transition);
+        }
+        
+        .tagline {
+            font-size: 1.8rem;
+            margin-bottom: 40px;
+            color: var(--on-bg);
+            font-weight: 500;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .tagline::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: var(--secondary);
+            border-radius: 2px;
+        }
+        
+        /* Botones */
+        .btn {
+            display: inline-block;
+            padding: 14px 35px;
+            background: transparent;
+            color: var(--primary);
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: var(--transition);
+            border: 2px solid var(--primary);
+            position: relative;
+            overflow: hidden;
+            margin: 10px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            box-shadow: var(--shadow);
+            font-size: 1.1rem;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+        
+        .btn:nth-child(1) {
+            animation-delay: 1s;
+        }
+        
+        .btn:nth-child(2) {
+            animation-delay: 1.2s;
+        }
+        
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 107, 107, 0.1), transparent);
+            transition: 0.5s;
+        }
+        
+        .btn:hover {
+            background: rgba(255, 107, 107, 0.1);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(255, 107, 107, 0.2);
+        }
+        
+        .btn:hover::before {
+            left: 100%;
+        }
+        
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+        
+        .btn-primary:hover {
+            background: var(--primary-variant);
+            color: white;
+        }
+        
+        /* Sección Sobre Mí */
+        .about {
+            background: var(--surface);
+            position: relative;
+        }
+        
+        .about-content {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+        }
+        
+        .about-text {
+            flex: 1;
+            animation: fadeIn 1s ease-out;
+        }
+        
+        .about-text p {
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+        
+        .about-stats {
+            flex: 1;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+        }
+        
+        .stat-card {
+            background: rgba(30, 30, 30, 0.5);
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            transition: var(--transition);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transform-style: preserve-3d;
+            transform: translateZ(0);
+            animation: fadeIn 1s ease-out;
+            animation-delay: calc(0.1s * var(--i));
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-15px) rotateY(10deg) rotateX(5deg);
+            border-color: var(--primary);
+            box-shadow: var(--shadow);
+        }
+        
+        .stat-card i {
+            font-size: 2.8rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+            transition: var(--transition);
+        }
+        
+        .stat-card:hover i {
+            transform: scale(1.2);
+            color: var(--secondary);
+        }
+        
+        /* Experiencia Laboral */
+        .experience-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+        }
+        
+        .job-card {
+            background: var(--surface);
+            border-radius: 20px;
+            padding: 40px;
+            transition: var(--transition);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transform-style: preserve-3d;
+            transform: translateZ(0);
+            position: relative;
+            overflow: hidden;
+            animation: fadeIn 1s ease-out;
+            animation-delay: calc(0.1s * var(--i));
+        }
+        
+        .job-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 0;
+            background: var(--primary);
+            transition: height 0.6s ease;
+            z-index: 1;
+        }
+        
+        .job-card:hover::before {
+            height: 100%;
+        }
+        
+        .job-card:hover {
+            transform: translateY(-15px) rotateY(5deg);
+            border-color: var(--secondary);
+            box-shadow: var(--shadow);
+        }
+        
+        .job-period {
+            color: var(--primary);
+            margin-bottom: 15px;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+        
+        .job-title {
+            font-size: 1.6rem;
+            margin-bottom: 15px;
+            color: var(--on-bg);
+            position: relative;
+            z-index: 2;
+        }
+        
+        .job-company {
+            color: var(--primary);
+            margin-bottom: 20px;
+            display: block;
+            font-size: 1.2rem;
+            position: relative;
+            z-index: 2;
+        }
+        
+        /* Habilidades */
+        .skills-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+        
+        .skill-category {
+            background: rgba(30, 30, 30, 0.5);
+            padding: 40px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transform-style: preserve-3d;
+            transform: translateZ(0);
+            transition: var(--transition);
+            animation: fadeIn 1s ease-out;
+            animation-delay: calc(0.1s * var(--i));
+        }
+        
+        .skill-category:hover {
+            transform: translateY(-10px) rotateX(5deg);
+            border-color: var(--primary);
+            box-shadow: var(--shadow);
+        }
+        
+        .skill-category h3 {
+            color: var(--primary);
+            margin-bottom: 30px;
+            font-size: 1.8rem;
+            position: relative;
+            padding-bottom: 15px;
+        }
+        
+        .skill-category h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: var(--primary);
+            border-radius: 2px;
+        }
+        
+        .skill-item {
+            margin-bottom: 25px;
+        }
+        
+        .skill-name {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 12px;
+            color: var(--on-surface);
+            font-weight: 500;
+        }
+        
+        .skill-bar {
+            height: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .skill-bar::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 0;
+            background: var(--primary);
+            border-radius: 5px;
+            transition: width 1.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+        
+        .skill-item:hover .skill-bar::after {
+            width: var(--skill-level);
+        }
+        
+        /* Educación */
+        .education-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+        }
+        
+        .edu-card {
+            background: var(--surface);
+            border-radius: 20px;
+            padding: 40px;
+            transition: var(--transition);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transform-style: preserve-3d;
+            transform: translateZ(0);
+            position: relative;
+            overflow: hidden;
+            animation: fadeIn 1s ease-out;
+            animation-delay: calc(0.1s * var(--i));
+        }
+        
+        .edu-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 0;
+            background: rgba(3, 218, 198, 0.1);
+            transition: height 0.6s ease;
+            z-index: 0;
+        }
+        
+        .edu-card:hover::before {
+            height: 100%;
+        }
+        
+        .edu-card:hover {
+            transform: translateY(-15px) rotateY(-5deg);
+            border-color: var(--secondary);
+            box-shadow: var(--shadow);
+        }
+        
+        .edu-period {
+            color: var(--secondary);
+            margin-bottom: 15px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .edu-degree {
+            font-size: 1.6rem;
+            margin-bottom: 10px;
+            color: var(--on-bg);
+            position: relative;
+            z-index: 2;
+        }
+        
+        /* Contacto */
+        .contact-container {
+            display: flex;
+            gap: 60px;
+        }
+        
+        .contact-info {
+            flex: 1;
+        }
+        
+        .contact-form {
+            flex: 1;
+        }
+        
+        .info-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 35px;
+            animation: fadeIn 1s ease-out;
+            animation-delay: calc(0.1s * var(--i));
+        }
+        
+        .info-item i {
+            font-size: 1.8rem;
+            color: var(--primary);
+            margin-right: 20px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: rgba(30, 30, 30, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+        
+        .info-item:hover i {
+            transform: rotate(15deg) scale(1.2);
+            color: var(--secondary);
+            background: rgba(3, 218, 198, 0.1);
+        }
+        
+        .form-group {
+            margin-bottom: 30px;
+            animation: fadeIn 1s ease-out;
+            animation-delay: calc(0.1s * var(--i));
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 12px;
+            color: var(--on-surface);
+            font-weight: 500;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 18px;
+            background: rgba(30, 30, 30, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            color: var(--on-bg);
+            font-family: inherit;
+            font-size: 1.1rem;
+            transition: var(--transition);
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 20px rgba(255, 107, 107, 0.3);
+            transform: translateY(-3px);
+        }
+        
+        textarea.form-control {
+            min-height: 180px;
+            resize: vertical;
+        }
+        
+        /* Footer */
+        footer {
+            background: #000;
+            padding: 60px 0 30px;
+            text-align: center;
+            position: relative;
+        }
+        
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+        
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: transparent;
+            color: var(--primary);
+            font-size: 1.5rem;
+            transition: var(--transition);
+            text-decoration: none;
+            border: 2px solid var(--primary);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .social-links a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 107, 107, 0.2), transparent);
+            transition: 0.5s;
+        }
+        
+        .social-links a:hover {
+            transform: translateY(-10px) rotate(10deg);
+            color: var(--secondary);
+            border-color: var(--secondary);
+            box-shadow: 0 10px 25px rgba(3, 218, 198, 0.3);
+        }
+        
+        .social-links a:hover::before {
+            left: 100%;
+        }
+        
+        /* Botón flotante de música */
+        .music-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: var(--primary);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            cursor: pointer;
+            z-index: 1000;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+        
+        #bg-music {
+            position: absolute;
+            top: -9999px;
+            left: -9999px;
+            visibility: hidden;
+        }
+
+        .music-btn:hover {
+            transform: scale(1.1) rotate(15deg);
+            background: var(--primary-variant);
+        }
+        
+        /* Indicador de volumen en preloader */
+        .volume-indicator {
+            margin-top: 20px;
+            display: flex;
+            align-items: center;
+            color: var(--on-bg);
+            opacity: 0.7;
+            font-size: 0.9rem;
+        }
+        
+        .volume-indicator i {
+            margin-right: 8px;
+            color: var(--secondary);
+        }
+        
+        /* Responsive */
+        @media (max-width: 992px) {
+            .about-content, .contact-container {
+                flex-direction: column;
+            }
+            
+            h1 {
+                font-size: 3rem;
+            }
+            
+            .tagline {
+                font-size: 1.5rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .profile-pic {
+                width: 180px;
+                height: 180px;
+            }
+            
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            .tagline {
+                font-size: 1.3rem;
+            }
+            
+            section {
+                padding: 70px 0;
+            }
+            
+            .personal-logo {
+                font-size: 3rem;
+                letter-spacing: 5px;
+            }
+
+            .header-content .btn {
+                display: block;
+                width: 100%;
+                margin: 10px auto;
+            }
+        }
+        
+        /* Mensajes de éxito/error */
+        .message {
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 8px;
+            text-align: center;
+            display: none;
+        }
+        
+        .success {
+            background-color: rgba(46, 204, 113, 0.2);
+            border: 1px solid #2ecc71;
+            color: #2ecc71;
+        }
+        
+        .error {
+            background-color: rgba(231, 76, 60, 0.2);
+            border: 1px solid #e74c3c;
+            color: #e74c3c;
+        }
+    </style>
+</head>
+<body>
+    <!-- Preloader personalizado con nombre -->
+    <div id="preloader">
+        <div class="personal-logo">Luis Ozuna</div>
+        <div class="loading-text">|Cargando hoja de vida, por favor espere...|</div>
+        <div class="volume-indicator">
+            <i class="fas fa-volume-mute"></i>
+            <span>Música en silencio durante la carga...</span>
+        </div>
+    </div>
+
+    <!-- Botón flotante para música -->
+    <div class="music-btn">
+        <i class="fas fa-pause"></i>
+    </div>
+
+    <!-- Audio para música de fondo (oculto) -->
+    <audio id="bg-music" loop autoplay muted>
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-7.mp3" type="audio/mpeg">
+        Tu navegador no soporta el elemento de audio.
+    </audio>
+
+    <!-- Header con información personal -->
+    <header>
+        <div class="creative-shape shape-1"></div>
+        <div class="creative-shape shape-2"></div>
+        <div class="creative-shape shape-3"></div>
+        
+        <div class="container">
+            <div class="header-content">
+                <div class="profile-pic">
+                    <div style="width: 100%; height: 100%; background: linear-gradient(135deg, var(--primary), var(--accent)); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 4rem; color: white;">
+                        <img src="PerfilFoto.jpeg" alt="Luis Ozuna Vizcaino" style="border-radius: 50%; width: 100%; height: 100%; object-fit: cover;">
+                    </div>
+                </div>
+                <h1>LUIS OZUNA VIZCAINO</h1>
+                <p class="tagline">ADMINISTRADOR DE EMPRESAS</p>
+                <p>ADMINISTRADOR ENFOCADO EN SOLUCIONES DIGITALES: DESARROLLO, EFICIENCIA Y EXPERIENCIA DE USUARIO.</p>
+                <div style="margin-top: 40px;">
+                    <a href="#sobre-mi" class="btn">Sobre Mí</a>
+                    <a href="#experiencia" class="btn">Experiencia</a>
+                    <a href="#habilidades" class="btn">Habilidades</a>
+                    <a href="#educacion" class="btn">Educación</a>
+                    <a href="#contacto" class="btn">Contactar</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Sección Sobre Mí -->
+    <section id="sobre-mi" class="about">
+        <div class="container">
+            <h2 style="color: var(--primary);">Sobre Mí</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>Soy un joven de 24 años de edad, Administrador de empresas, enfocado en optimización de procesos, desarrollo de soluciones digitales y mejora de la experiencia del cliente.</p>
+                    <p>Mi enfoque combina el pensamiento estratégico con la implementación práctica, buscando siempre soluciones que no solo sean eficientes sino que también generen valor sostenible para la organización.</p>
+                    <p>Cuando no estoy trabajando, disfruto explorar nuevas tecnologías, participar en proyectos de innovación y estudiar diversos temas para mejorar mis habilidades y conocimientos.</p>
+                    <div style="margin-top: 30px;">
+                        <a href="#" class="btn" style="margin-left: 0;">Descargar CV</a>
+                    </div>
+                </div>
+                <div class="about-stats">
+                    <div class="stat-card" style="--i: 1">
+                        <i class="fas fa-chart-line"></i>
+                        <h3>1 Año</h3>
+                        <p>Experiencia en Administración</p>
+                    </div>
+                    <div class="stat-card" style="--i: 2">
+                        <i class="fas fa-project-diagram"></i>
+                        <h3>50+</h3>
+                        <p>Proyectos Implementados</p>
+                    </div>
+                    <div class="stat-card" style="--i: 3">
+                        <i class="fas fa-users"></i>
+                        <h3>15+</h3>
+                        <p>Equipos Liderados</p>
+                    </div>
+                    <div class="stat-card" style="--i: 4">
+                        <i class="fas fa-handshake"></i>
+                        <h3>30+</h3>
+                        <p>Clientes Satisfechos</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experiencia Laboral -->
+    <section id="experiencia" class="experience">
+        <div class="container">
+            <h2 style="color: var(--primary);">Experiencia Laboral</h2>
+            <div class="experience-container">
+                <div class="job-card" style="--i: 1">
+                    <span class="job-period">Septiembre 2023 - Febrero 2024</span>
+                    <h3 class="job-title">Asistente administrativo (practicante)</h3>
+                    <span class="job-company">Vicerrectoria Academica-Universidad de Sucre</span>
+                    <ul>
+                        <li>Apoyo al seguimiento al trabajo realizado de pasantías de análisis e informe de los programas de educación continuada y pregrados de la universidad de sucre, en cuanto a rentabilidad, verificación de costos, punto de equilibrio y demás para las cohortes ofertadas y puesta en marcha de software de oficina de pregrado.</li>
+                        <li>Apoyo en revisión de documentos inscritos a convocatoria de monitorias académicas para el periodo II de 2023.</li>
+                        <li>Seguimiento y revisión de los seleccionados para la convocatoria de monitores académicos 2023-II.</li>
+                        <li>Apoyo en revisión y entrega de documentos de salidas de campo 2023-II.</li>
+                        <li>Apoyo en proceso de revisión de contenido de oferta de pregrado y posgrados para la página web.</li>
+                        <li>Apoyo en verificación de comunicaciones recibidas en la vicerrectoría académica.</li>
+                    </ul>
+                </div>
+                
+                <div class="job-card" style="--i: 2">
+                    <span class="job-period">Febrero 2024 - Junio 2024</span>
+                    <h3 class="job-title">Asistente administrativo (Pasante)</h3>
+                    <span class="job-company">Vicerrectoria Academica-Universidad de Sucre</span>
+                    <ul>
+                        <li> Análisis e informe de los programas de educación continuada y posgrado de la Universidad de Sucre, en cuanto a la revisión de rentabilidad, verificación de costos, punto de equilibrio y demás para las cohortes ofertadas. </li>
+                        <li>Apoyo en proceso de revisión de contenido de oferta de pregrado y posgrados para la página web.</li>
+                        <li>Apoyo en revisión de documentos del proceso de convocatorias de monitorias académicas para el periodo 01 de 2024.</li>
+                        <li>Apoyo en proceso de salida de campo y visitas académicas, periodo 2024-01, realizar el estudio de pertinencia de cambios de modelo de solicitud.</li>
+                        <li> Revisión de los formatos utilizados en el proceso de formación que a la fecha no se encuentran codificados dentro del proceso de calidad o que requieran una actualización. </li>
+                        <li>Apoyo en coordinación y logística de actividades de la Vicerrectoría Académica para la asistencia a eventos externos</li>
+                        <li> Apoyo en actividades varias asignadas desde la Vicerrectoría Académica</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Habilidades -->
+    <section id="habilidades" class="skills">
+        <div class="container">
+            <h2 style="color: var(--primary);">Habilidades</h2>
+            <div class="skills-container">
+                <div class="skill-category" style="--i: 1">
+                    <h3>Administrativas</h3>
+                    <div class="skill-item">
+                        <div class="skill-name">
+                            <span>Gestión de Proyectos</span>
+                            <span>95%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="--skill-level: 95%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-name">
+                            <span>Planificación Estratégica</span>
+                            <span>90%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="--skill-level: 90%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-name">
+                            <span>Adaptabilidad</span>
+                            <span>92%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="--skill-level: 85%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-name">
+                            <span>Pensamiento analítico</span>
+                            <span>95%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="--skill-level: 85%"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="skill-category" style="--i: 2">
+                    <h3>Tecnológicas</h3>
+                    <div class="skill-item">
+                        <div class="skill-name">
+                            <span> Tecnologia en general</span>
+                            <span>95%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="--skill-level: 90%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-name">
+                            <span>Microsoft Office (excel, word, etc)</span>
+                            <span>97%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="--skill-level: 95%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-name">
+                            <span>Adobe (premier, photoshop)</span>
+                            <span>85%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="--skill-level: 85%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-name">
+                            <span>Manejo redes sociales</span>
+                            <span>90%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="--skill-level: 85%"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="skill-category" style="--i: 3">
+                    <h3>Hab. Blandas</h3>
+                    <div class="skill-item">
+                        <div class="skill-name">
+                            <span>Liderazgo</span>
+                            <span>95%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="--skill-level: 95%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-name">
+                            <span>Comunicación Efectiva</span>
+                            <span>90%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="--skill-level: 90%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-name">
+                            <span>Resolución de Problemas</span>
+                            <span>95%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="--skill-level: 95%"></div>
+                        </div>                        
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-name">
+                            <span>Trabajo en Equipo</span>
+                            <span>95%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="--skill-level: 85%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Educación -->
+    <section id="educacion" class="education">
+      <div class="container">
+        <h2 style="color: var(--primary);">Educación</h2>
+        <div class="education-container">
+          
+          <div class="edu-card" style="--i: 3">
+              <span class="edu-period"> Enero - Actualidad</span>
+              <h3 class="edu-degree">Curso de programación</h3>
+              <span class="edu-school"> Formación por parte de Mintic y Universidad Tecnologica de Bolivar</span>
+              <p>Certificación de nivel Basico obtenida y continuidad en formación.</p>
+          </div>
+          <div class="edu-card" style="--i: 2">
+              <span class="edu-period">2024</span>
+              <h3 class="edu-degree">Carrera profesional</h3>
+              <span class="edu-school">Universidad de Sucre</span>
+              <p>Carrera de pregrado en Administración de Empresas</p>
+          </div>
+          <div class="edu-card" style="--i: 1">
+              <span class="edu-period">2018</span>
+              <h3 class="edu-degree">Finalización de Bachiller académico</h3>
+              <span class="edu-school">Colegio Nuestra Señora de las Mercedes (Sincelejo)</span>
+              <p>Reconocido en la región por buenos resultados tanto en habilidades blandas (valores,  blandos) como académicos (calificaciones) de los estudiantes.</p>
+          </div>
+          <div class="edu-card" style="--i: 3">
+              <span class="edu-period"> 2023</span>
+              <h3 class="edu-degree">Diplomado de Fundamentos de Coaching</h3>
+              <span class="edu-school"> Formación virtual en Politecnico de Colombia </span>
+              <p>(Diplomado finalizado con 100% de aprobación pero pendiente de certificación)</p>
+          </div>
+            <div class="edu-card" style="--i: 3">
+              <span class="edu-period"> 2023</span>
+              <h3 class="edu-degree">Diplomado de Alta Gerencia</h3>
+              <span class="edu-school"> Formación virtual en Politecnico de Colombia </span>
+              <p>(Diplomado finalizado con 100% de aprobación pero pendiente de certificación)</p>
+          </div>
+          <div class="edu-card" style="--i: 3">
+              <span class="edu-period"> 2023</span>
+              <h3 class="edu-degree">Diplomado de Nomina y prestaciones sociales</h3>
+              <span class="edu-school"> Formación virtual en Politecnico de Colombia </span>
+              <p>(Diplomado finalizado con 100% de aprobación pero pendiente de certificación)</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contacto -->
+    <section id="contacto" class="contact">
+        <div class="container">
+            <h2 class="animated-title" style="color: var(--primary);">Contacto</h2>
+            <div class="contact-container">
+                <div class="contact-info">
+                    
+                    <div class="info-item" style="--i: 2">
+                        <i class="fas fa-phone"></i>
+                        <div>
+                            <h3>Teléfono</h3>
+                            <p>+57 3113879965</p>
+                        </div>
+                    </div>
+                    <div class="info-item" style="--i: 3">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>
+                            <h3>Ubicación</h3>
+                            <p>Sincelejo, Colombia</p>
+                        </div>
+                    </div>
+                    <div class="info-item" style="--i: 4">
+                        <i class="fas fa-globe"></i>
+                        <div>
+                            <h3>Sitio Web</h3>
+                            <p>NoDisponible</p>
+                        </div>
+                    </div>
+                    <div class="info-item" style="--i: 5">
+                        <i class="fas fa-clock"></i>
+                        <div>
+                            <h3>Disponibilidad</h3>
+                            <p>Disponible para temas laborales</p>
+                            <p>8:00 AM - 6:00 PM</p>
+                            <p>Puedes dejarme un mensaje por la sección correspondiente y me pondré en contacto contigo, muchas ¡Gracias!</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-form">
+                    <div id="message-container"></div>
+                    <form id="contact-form">
+                        <div class="form-group" style="--i: 1">
+                            <label for="name">Nombre</label>
+                            <input type="text" id="name" name="name" class="form-control" placeholder="Tu nombre" required>
+                        </div>
+                        <div class="form-group" style="--i: 2">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" class="form-control" placeholder="tuemail@ejemplo.com" required>
+                        </div>
+                        <div class="form-group" style="--i: 3">
+                            <label for="subject">Asunto</label>
+                            <input type="text" id="subject" name="subject" class="form-control" placeholder="Asunto del mensaje">
+                        </div>
+                        <div class="form-group" style="--i: 4">
+                            <label for="message">Mensaje</label>
+                            <textarea id="message" name="message" class="form-control" placeholder="Cuéntame sobre tu proyecto..." required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary" style="margin-top: 10px;">Enviar Mensaje</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="social-links">
+                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+            </div>
+            <p>&copy; 2025 Luis Ozuna Vizcaino. Todos los derechos reservados.</p>
+            <p style="margin-top: 20px; color: #888;">Desarrollado con profesionalismo y dedicación</p>
+        </div>
+    </footer>
+
+    <script>
+        // Preloader personalizado
+        document.addEventListener('DOMContentLoaded', function() {
+            const preloader = document.getElementById('preloader');
+            const bgMusic = document.getElementById('bg-music');
+            const musicBtn = document.querySelector('.music-btn');
+            let isPlaying = false;
+            
+            // Forzar inicio de música silenciada
+            bgMusic.muted = true;
+            bgMusic.play().catch(error => {
+                console.log("La reproducción automática fue bloqueada:", error);
+            });
+            
+            // Simular tiempo de carga
+            setTimeout(() => {
+                preloader.style.opacity = '0';
+                setTimeout(() => {
+                    preloader.style.display = 'none';
+                    document.body.style.overflow = 'auto';
+                    
+                    // Quitar mute y activar música después del preloader
+                    bgMusic.muted = false;
+                    isPlaying = true;
+                    musicBtn.innerHTML = '<i class="fas fa-pause"></i>';
+                }, 1500);
+            }, 3000);
+            
+            // Botón de música
+            musicBtn.addEventListener('click', function() {
+                if (isPlaying) {
+                    bgMusic.pause();
+                    musicBtn.innerHTML = '<i class="fas fa-music"></i>';
+                } else {
+                    bgMusic.play();
+                    musicBtn.innerHTML = '<i class="fas fa-pause"></i>';
+                }
+                isPlaying = !isPlaying;
+            });
+            
+            // Animación de habilidades al aparecer
+            const skillsSection = document.getElementById('habilidades');
+            const skillItems = document.querySelectorAll('.skill-item');
+            
+            // Observar cuando la sección de habilidades entra en la vista
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        skillItems.forEach(item => {
+                            const bar = item.querySelector('.skill-bar');
+                            const progress = item.querySelector('.skill-progress');
+                            bar.style.setProperty('--skill-level', progress.style.getPropertyValue('--skill-level'));
+                        });
+                    }
+                });
+            }, { threshold: 0.3 });
+            
+            observer.observe(skillsSection);
+            
+            // Efecto hover en tarjetas
+            const cards = document.querySelectorAll('.stat-card, .job-card, .edu-card, .skill-category');
+            
+            cards.forEach(card => {
+                card.addEventListener('mouseenter', () => {
+                    card.style.transform = 'translateY(-15px) rotateY(5deg)';
+                });
+                
+                card.addEventListener('mouseleave', () => {
+                    card.style.transform = 'translateY(0) rotateY(0)';
+                });
+            });
+            
+            // Efecto de onda en botones
+            const buttons = document.querySelectorAll('.btn');
+            
+            buttons.forEach(button => {
+                button.addEventListener('click', function(e) {
+                    const x = e.clientX - e.target.offsetLeft;
+                    const y = e.clientY - e.target.offsetTop;
+                    
+                    const ripples = document.createElement('span');
+                    ripples.style.left = x + 'px';
+                    ripples.style.top = y + 'px';
+                    ripples.classList.add('ripple');
+                    
+                    this.appendChild(ripples);
+                    
+                    setTimeout(() => {
+                        ripples.remove();
+                    }, 1000);
+                });
+            });
+            
+            // Animación de escritura para el título
+            const title = document.querySelector('h1');
+            const originalText = title.textContent;
+            title.textContent = '';
+            
+            let i = 0;
+            const typeWriter = () => {
+                if (i < originalText.length) {
+                    title.textContent += originalText.charAt(i);
+                    i++;
+                    setTimeout(typeWriter, 100);
+                }
+            };
+            
+            setTimeout(typeWriter, 1000);
+            
+            // Efecto de cambio de color en el título
+            let hue = 0;
+            setInterval(() => {
+                hue = (hue + 1) % 360;
+                document.documentElement.style.setProperty('--primary', `hsl(${hue}, 85%, 65%)`);
+            }, 50);
+            
+            // Efecto parallax en el fondo
+            document.addEventListener('mousemove', (e) => {
+                const moveX = (e.clientX - window.innerWidth / 2) / 50;
+                const moveY = (e.clientY - window.innerHeight / 2) / 50;
+                
+                document.querySelector('header').style.backgroundPosition = 
+                    `calc(50% + ${moveX}px) calc(50% + ${moveY}px)`;
+            });
+            
+            // Manejo del formulario
+            const contactForm = document.getElementById('contact-form');
+            const messageContainer = document.getElementById('message-container');
+            
+            contactForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Mostrar mensaje de envío
+                showMessage('Enviando mensaje...', 'success');
+                
+                // URL de Formspree (debes reemplazar con tu email)
+                const formspreeEndpoint = 'https://formspree.io/f/xnqepyve'; // ¡REEMPLAZA ESTO CON TU ENDPOINT!
+                
+                // Recopilar datos del formulario
+                const formData = new FormData(contactForm);
+                
+                // Enviar datos a Formspree
+                fetch(formspreeEndpoint, {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                })
+                .then(response => {
+                    if (response.ok) {
+                        showMessage('¡Gracias por tu mensaje! Me pondré en contacto contigo pronto.', 'success');
+                        contactForm.reset();
+                    } else {
+                        showMessage('Hubo un error al enviar el mensaje. Por favor, inténtalo de nuevo más tarde.', 'error');
+                    }
+                })
+                .catch(error => {
+                    showMessage('Error de red. Por favor, verifica tu conexión a internet.', 'error');
+                });
+            });
+            
+            function showMessage(text, type) {
+                messageContainer.innerHTML = `<div class="message ${type}">${text}</div>`;
+                messageContainer.style.display = 'block';
+                
+                // Ocultar el mensaje después de 5 segundos
+                if (type === 'success') {
+                    setTimeout(() => {
+                        messageContainer.style.display = 'none';
+                    }, 5000);
+                }
+            }
+        });
+    </script>
+</body>
+</html>
