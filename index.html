@@ -897,13 +897,27 @@
         }
         
         /* Mensajes de éxito/error */
-        .message {
-            padding: 15px;
-            margin: 15px 0;
-            border-radius: 8px;
-            text-align: center;
-            display: block; /* <-- Cambia de 'none' a 'block' */
-        }
+        #message-container {
+    position: fixed;
+    left: 50%;
+    bottom: 40px;
+    transform: translateX(-50%);
+    z-index: 99999;
+    min-width: 280px;
+    max-width: 90vw;
+    pointer-events: none;
+}
+
+.message {
+    display: block;
+    padding: 15px 25px;
+    border-radius: 8px;
+    text-align: center;
+    font-size: 1.1rem;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+    animation: fadeIn 0.5s;
+    pointer-events: auto;
+}
         
         .success {
             background-color: rgba(46, 204, 113, 0.2);
@@ -1312,7 +1326,6 @@
                             <p>Disponible para temas laborales</p>
                             <p>8:00 AM - 6:00 PM</p>
                             <p>Puedes dejarme un mensaje por la sección correspondiente y me pondré en contacto contigo, muchas ¡Gracias!</p>
-                            <p>Por el momento no se notifica en pantalla que se envió el correo, pero si lo recibo (comprobado).</p>
                         </div>
                     </div>
                 </div>
@@ -1354,6 +1367,9 @@
             <p style="margin-top: 20px; color: #888;">Desarrollado con profesionalismo y dedicación</p>
         </div>
     </footer>
+
+    <!-- Toast flotante para mensajes -->
+    <div id="message-container" style="display:none;"></div>
 
     <!-- Modal de confirmación -->
     <div id="success-modal" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.5); z-index:99999; align-items:center; justify-content:center;">
