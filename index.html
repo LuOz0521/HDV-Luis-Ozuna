@@ -952,6 +952,21 @@
             margin-bottom: 15px;
             font-size: 2rem;
             font-weight: 700;
+            display: block;
+            position: relative;
+            left: unset;
+            transform: unset;
+        }
+
+        #success-modal h2::after {
+            content: '';
+            display: block;
+            margin: 12px auto 0 auto;
+            width: 80px;
+            height: 5px;
+            background: var(--secondary);
+            border-radius: 3px;
+            position: static;
         }
 
         #success-modal p {
