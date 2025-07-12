@@ -932,32 +932,44 @@
         }
 
         #success-modal .modal-content {
-            background:white;
-            color:#222;
-            padding:40px 30px;
-            border-radius:20px;
-            text-align:center;
-            max-width:90vw;
+            background: white;
+            color: #222;
+            padding: 40px 30px;
+            border-radius: 20px;
+            max-width: 400px;           /* Cambia a un ancho fijo y razonable */
+            width: 90vw;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
             justify-content: center;
-            display: flex;              /* Añade esto */
-            flex-direction: column;     /* Añade esto */
-            align-items: center;        /* Añade esto */
+            text-align: center;         /* Centra el texto de todos los hijos */
+            box-sizing: border-box;
+            margin: 0 auto;
         }
 
         #success-modal h2 {
-            color:var(--primary);
-            margin-bottom:15px;
+            color: var(--primary);
+            margin-bottom: 15px;
+            font-size: 2rem;
+            font-weight: 700;
+        }
+
+        #success-modal p {
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+            width: 100%;
         }
 
         #success-modal button {
-            margin-top:25px;
-            padding:10px 30px;
-            border-radius:10px;
-            background:var(--primary);
-            color:white;
-            border:none;
-            font-size:1rem;
-            cursor:pointer;
+            margin-top: 10px;
+            padding: 10px 30px;
+            border-radius: 10px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            font-size: 1rem;
+            cursor: pointer;
+            font-weight: 600;
         }
 
         .ripple {
