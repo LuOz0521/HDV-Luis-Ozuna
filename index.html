@@ -41,7 +41,6 @@
             background: var(--bg);
             color: var(--on-bg);
             line-height: 1.6;
-            overflow: hidden;
             perspective: 1000px;
         }
         
@@ -1434,27 +1433,24 @@
             const buttons = document.querySelectorAll('.btn');
             
             buttons.forEach(button => {
-                button.addEventListener('click', function(e) {
-                    // Solo aplica ripple si el botón no es un enlace
-                    if (button.tagName !== 'A') {
-                        const x = e.clientX - e.target.offsetLeft;
-                        const y = e.clientY - e.target.offsetTop;
+    button.addEventListener('click', function(e) {
+        const x = e.clientX - e.target.offsetLeft;
+        const y = e.clientY - e.target.offsetTop;
 
-                        const ripples = document.createElement('span');
-                        ripples.style.left = x + 'px';
-                        ripples.style.top = y + 'px';
-                        ripples.classList.add('ripple');
-                        ripples.style.position = 'absolute';
-                        ripples.style.pointerEvents = 'none'; // <-- Esto evita bloquear el click
+        const ripples = document.createElement('span');
+        ripples.style.left = x + 'px';
+        ripples.style.top = y + 'px';
+        ripples.classList.add('ripple');
+        ripples.style.position = 'absolute';
+        ripples.style.pointerEvents = 'none';
 
-                        this.appendChild(ripples);
+        this.appendChild(ripples);
 
-                        setTimeout(() => {
-                            ripples.remove();
-                        }, 1000);
-                    }
-                });
-            });
+        setTimeout(() => {
+            ripples.remove();
+        }, 1000);
+    });
+});
             
             // Animación de escritura para el título
             const title = document.querySelector('h1');
