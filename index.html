@@ -830,6 +830,13 @@
             background: var(--primary-variant);
         }
         
+        /* Ocultar botón de música en móvil */
+        @media (max-width: 600px) {
+          .music-btn {
+            display: none !important;
+          }
+        }
+        
         /* Indicador de volumen en preloader */
         .volume-indicator {
             margin-top: 20px;
@@ -909,6 +916,45 @@
             background-color: rgba(231, 76, 60, 0.2);
             border: 1px solid #e74c3c;
             color: #e74c3c;
+        }
+
+        /* Modal de confirmación */
+        #success-modal {
+            display:none;
+            position:fixed;
+            top:0;
+            left:0;
+            width:100vw;
+            height:100vh;
+            background:rgba(0,0,0,0.5);
+            z-index:99999;
+            align-items:center;
+            justify-content:center;
+        }
+
+        #success-modal .modal-content {
+            background:white;
+            color:#222;
+            padding:40px 30px;
+            border-radius:20px;
+            text-align:center;
+            max-width:90vw;
+        }
+
+        #success-modal h2 {
+            color:var(--primary);
+            margin-bottom:15px;
+        }
+
+        #success-modal button {
+            margin-top:25px;
+            padding:10px 30px;
+            border-radius:10px;
+            background:var(--primary);
+            color:white;
+            border:none;
+            font-size:1rem;
+            cursor:pointer;
         }
     </style>
 </head>
@@ -1285,6 +1331,15 @@
         </div>
     </footer>
 
+    <!-- Modal de confirmación -->
+    <div id="success-modal" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.5); z-index:99999; align-items:center; justify-content:center;">
+      <div style="background:white; color:#222; padding:40px 30px; border-radius:20px; text-align:center; max-width:90vw;">
+        <h2 style="color:var(--primary); margin-bottom:15px;">¡Mensaje enviado!</h2>
+        <p>Gracias por tu mensaje. Me pondré en contacto contigo pronto.</p>
+        <button id="close-modal" style="margin-top:25px; padding:10px 30px; border-radius:10px; background:var(--primary); color:white; border:none; font-size:1rem; cursor:pointer;">Cerrar</button>
+      </div>
+    </div>
+
     <script>
         // Preloader personalizado
         document.addEventListener('DOMContentLoaded', function() {
@@ -1413,6 +1468,8 @@
             // Manejo del formulario
             const contactForm = document.getElementById('contact-form');
             const messageContainer = document.getElementById('message-container');
+            const successModal = document.getElementById('success-modal');
+            const closeModalBtn = document.getElementById('close-modal');
             
             contactForm.addEventListener('submit', function(e) {
                 e.preventDefault();
@@ -1438,6 +1495,8 @@
                     if (response.ok) {
                         showMessage('¡Gracias por tu mensaje! Me pondré en contacto contigo pronto.', 'success');
                         contactForm.reset();
+                        // Mostrar modal de éxito
+                        successModal.style.display = 'flex';
                     } else {
                         showMessage('Hubo un error al enviar el mensaje. Por favor, inténtalo de nuevo más tarde.', 'error');
                     }
@@ -1445,6 +1504,10 @@
                 .catch(error => {
                     showMessage('Error de red. Por favor, verifica tu conexión a internet.', 'error');
                 });
+            });
+            
+            closeModalBtn.addEventListener('click', () => {
+              successModal.style.display = 'none';
             });
             
             function showMessage(text, type) {
