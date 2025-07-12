@@ -978,11 +978,6 @@
         }
 
         #message-container {
-            position: fixed;
-            left: 50%;
-            bottom: 40px;
-            transform: translateX(-50%);
-            z-index: 100000;
             min-width: 280px;
             max-width: 90vw;
             pointer-events: none;
@@ -1578,7 +1573,16 @@
             function showMessage(text, type) {
                 messageContainer.innerHTML = `<div class="message ${type}">${text}</div>`;
                 messageContainer.style.display = 'block';
-                
+
+                // Posicionar el toast sobre el formulario
+                const form = document.getElementById('contact-form');
+                const rect = form.getBoundingClientRect();
+                messageContainer.style.position = 'absolute';
+                messageContainer.style.left = rect.left + window.scrollX + 'px';
+                messageContainer.style.top = rect.top + window.scrollY - 60 + 'px'; // 60px arriba del formulario
+                messageContainer.style.transform = 'none';
+                messageContainer.style.zIndex = '100000';
+
                 // Ocultar el mensaje después de 5 segundos
                 if (type === 'success') {
                     setTimeout(() => {
