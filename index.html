@@ -1376,8 +1376,7 @@
                 preloader.style.opacity = '0';
                 setTimeout(() => {
                     preloader.style.display = 'none';
-                    document.body.style.overflow = 'auto';
-                    
+                    document.body.style.overflow = 'visible'; // <-- Cambia a visible
                     // Quitar mute y activar música después del preloader
                     bgMusic.muted = false;
                     isPlaying = true;
