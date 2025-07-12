@@ -902,10 +902,11 @@
     left: 50%;
     bottom: 40px;
     transform: translateX(-50%);
-    z-index: 99999;
+    z-index: 100000; /* Asegura que esté encima de todo */
     min-width: 280px;
     max-width: 90vw;
     pointer-events: none;
+    transition: opacity 0.4s;
 }
 
 .message {
@@ -917,20 +918,10 @@
     box-shadow: 0 8px 32px rgba(0,0,0,0.18);
     animation: fadeIn 0.5s;
     pointer-events: auto;
+    background: white;
+    opacity: 0.98;
 }
         
-        .success {
-            background-color: rgba(46, 204, 113, 0.2);
-            border: 1px solid #2ecc71;
-            color: #2ecc71;
-        }
-        
-        .error {
-            background-color: rgba(231, 76, 60, 0.2);
-            border: 1px solid #e74c3c;
-            color: #e74c3c;
-        }
-
         /* Modal de confirmación */
         #success-modal {
             display:none;
@@ -1152,7 +1143,7 @@
                         </div>
                     </div>
                     <div class="skill-item">
-                        <div class="skill-name">
+                        <div class="skill-name
                             <span>Pensamiento analítico</span>
                             <span>95%</span>
                         </div>
@@ -1330,7 +1321,6 @@
                     </div>
                 </div>
                 <div class="contact-form">
-                    <div id="message-container"></div>
                     <form id="contact-form">
                         <div class="form-group" style="--i: 1">
                             <label for="name">Nombre</label>
