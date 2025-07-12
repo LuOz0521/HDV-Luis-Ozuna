@@ -958,7 +958,6 @@
             transform: unset;
         }
 
-        
 
         #success-modal p {
             margin-bottom: 20px;
@@ -976,6 +975,31 @@
             font-size: 1rem;
             cursor: pointer;
             font-weight: 600;
+        }
+
+        #message-container {
+            position: fixed;
+            left: 50%;
+            bottom: 40px;
+            transform: translateX(-50%);
+            z-index: 100000;
+            min-width: 280px;
+            max-width: 90vw;
+            pointer-events: none;
+            transition: opacity 0.4s;
+        }
+
+        .message {
+            display: block;
+            padding: 15px 25px;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 1.1rem;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+            animation: fadeIn 0.5s;
+            pointer-events: auto;
+            background: white;
+            opacity: 0.98;
         }
 
         .ripple {
@@ -1332,7 +1356,6 @@
                     </div>
                 </div>
                 <div class="contact-form">
-                    <div id="message-container"></div>
                     <form id="contact-form">
                         <div class="form-group" style="--i: 1">
                             <label for="name">Nombre</label>
@@ -1378,6 +1401,8 @@
         <button id="close-modal" style="margin-top:25px; padding:10px 30px; border-radius:10px; background:var(--primary); color:white; border:none; font-size:1rem; cursor:pointer;">Cerrar</button>
       </div>
     </div>
+
+    <div id="message-container"></div>
 
     <script>
         // Preloader personalizado
