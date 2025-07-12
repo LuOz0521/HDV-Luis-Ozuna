@@ -982,8 +982,19 @@
             max-width: 90vw;
             pointer-events: none;
             transition: opacity 0.4s;
-            position: static;
-            margin-top: 20px;
+        }
+
+        .message {
+            display: block;
+            padding: 15px 25px;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 1.1rem;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+            animation: fadeIn 0.5s;
+            pointer-events: auto;
+            background: white;
+            opacity: 0.98;
         }
 
         .ripple {
@@ -1359,7 +1370,6 @@
                         </div>
                         <button type="submit" class="btn btn-primary" style="margin-top: 10px;">Enviar Mensaje</button>
                     </form>
-                    <div id="message-container"></div> <!-- Mueve este aquí -->
                 </div>
             </div>
         </div>
@@ -1380,28 +1390,206 @@
 
     <!-- Modal de confirmación -->
     <div id="success-modal" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.5); z-index:99999; align-items:center; justify-content:center;">
-        <div class="modal-content" style="background:white; color:#222; padding:40px 30px; border-radius:20px; max-width:400px; width:90vw; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; box-sizing:border-box; margin:0 auto;">
-            <h2 style="color:var(--primary); margin-bottom:15px; font-size:2rem; font-weight:700; display:block; position:relative; left:unset; transform:unset;">¡Mensaje Enviado!</h2>
-            <p style="margin-bottom:20px; font-size:1.1rem; width:100%;">Tu mensaje ha sido enviado exitosamente. Me pondré en contacto contigo lo más pronto posible.</p>
-            <button id="close-modal" style="margin-top:10px; padding:10px 30px; border-radius:10px; background:var(--primary); color:white; border:none; font-size:1rem; cursor:pointer; font-weight:600;">Cerrar</button>
-        </div>
+      <div class="modal-content">
+        <h2 style="color:var(--primary); margin-bottom:15px;">¡Mensaje enviado!</h2>
+        <p>Gracias por tu mensaje. Me pondré en contacto contigo pronto.</p>
+        <button id="close-modal" style="margin-top:25px; padding:10px 30px; border-radius:10px; background:var(--primary); color:white; border:none; font-size:1rem; cursor:pointer;">Cerrar</button>
+      </div>
     </div>
 
+    <div id="message-container"></div>
+
     <script>
-        // Cerrar el modal de éxito al hacer clic en el botón
-        document.getElementById('close-modal').addEventListener('click', function() {
-            document.getElementById('success-modal').style.display = 'none';
-        });
+        // Preloader personalizado
+        document.addEventListener('DOMContentLoaded', function() {
+            const preloader = document.getElementById('preloader');
+            const bgMusic = document.getElementById('bg-music');
+            const musicBtn = document.querySelector('.music-btn');
+            let isPlaying = false;
+            
+            // Forzar inicio de música silenciada
+            bgMusic.muted = true;
+            bgMusic.play().catch(error => {
+                console.log("La reproducción automática fue bloqueada:", error);
+            });
+            
+            // Simular tiempo de carga
+            setTimeout(() => {
+                preloader.style.opacity = '0';
+                setTimeout(() => {
+                    preloader.style.display = 'none';
+                    document.body.style.overflow = 'visible'; // <-- Cambia a visible
+                    // Quitar mute y activar música después del preloader
+                    bgMusic.muted = false;
+                    isPlaying = true;
+                    musicBtn.innerHTML = '<i class="fas fa-pause"></i>';
+                }, 1500);
+            }, 3000);
+            
+            // Botón de música
+            musicBtn.addEventListener('click', function() {
+                if (isPlaying) {
+                    bgMusic.pause();
+                    musicBtn.innerHTML = '<i class="fas fa-music"></i>';
+                } else {
+                    bgMusic.play();
+                    musicBtn.innerHTML = '<i class="fas fa-pause"></i>';
+                }
+                isPlaying = !isPlaying;
+            });
+            
+            // Animación de Habilidades al aparecer
+            const skillsSection = document.getElementById('Habilidades');
+            const skillItems = document.querySelectorAll('.skill-item');
+            
+            // Observar cuando la sección de Habilidades entra en la vista
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        skillItems.forEach(item => {
+                            const bar = item.querySelector('.skill-bar');
+                            const progress = item.querySelector('.skill-progress');
+                            bar.style.setProperty('--skill-level', progress.style.getPropertyValue('--skill-level'));
+                        });
+                    }
+                });
+            }, { threshold: 0.3 });
+            
+            observer.observe(skillsSection);
+            
+            // Efecto hover en tarjetas
+            const cards = document.querySelectorAll('.stat-card, .job-card, .edu-card, .skill-category');
+            
+            cards.forEach(card => {
+                card.addEventListener('mouseenter', () => {
+                    card.style.transform = 'translateY(-15px) rotateY(5deg)';
+                });
+                
+                card.addEventListener('mouseleave', () => {
+                    card.style.transform = 'translateY(0) rotateY(0)';
+                });
+            });
+            
+            // Efecto de onda en botones
+            const buttons = document.querySelectorAll('.btn');
+            
+            buttons.forEach(button => {
+    button.addEventListener('click', function(e) {
+        const x = e.clientX - e.target.offsetLeft;
+        const y = e.clientY - e.target.offsetTop;
 
-        // Enviar formulario de contacto
-        document.getElementById('contact-form').addEventListener('submit', function(e) {
-            e.preventDefault(); // Evitar envío normal del formulario
+        const ripples = document.createElement('span');
+        ripples.style.left = x + 'px';
+        ripples.style.top = y + 'px';
+        ripples.classList.add('ripple');
+        ripples.style.position = 'absolute';
+        ripples.style.pointerEvents = 'none';
 
-            // Mostrar el modal de éxito
-            document.getElementById('success-modal').style.display = 'flex';
+        this.appendChild(ripples);
 
-            // Aquí puedes agregar el código para enviar el formulario a tu servidor o servicio de correo
-            // Por ejemplo, usando fetch() o XMLHttpRequest para enviar los datos a un script PHP o a un servicio de terceros
+        setTimeout(() => {
+            ripples.remove();
+        }, 1000);
+    });
+});
+            
+            // Animación de escritura para el título
+            const title = document.querySelector('h1');
+            const originalText = title.textContent;
+            title.textContent = '';
+            
+            let i = 0;
+            const typeWriter = () => {
+                if (i < originalText.length) {
+                    title.textContent += originalText.charAt(i);
+                    i++;
+                    setTimeout(typeWriter, 100);
+                }
+            };
+            
+            setTimeout(typeWriter, 1000);
+            
+            // Efecto de cambio de color en el título
+            let hue = 0;
+            setInterval(() => {
+                hue = (hue + 1) % 360;
+                document.documentElement.style.setProperty('--primary', `hsl(${hue}, 85%, 65%)`);
+            }, 50);
+            
+            // Efecto parallax en el fondo
+            document.addEventListener('mousemove', (e) => {
+                const moveX = (e.clientX - window.innerWidth / 2) / 50;
+                const moveY = (e.clientY - window.innerHeight / 2) / 50;
+                
+                document.querySelector('header').style.backgroundPosition = 
+                    `calc(50% + ${moveX}px) calc(50% + ${moveY}px)`;
+            });
+            
+            // Manejo del formulario
+            const contactForm = document.getElementById('contact-form');
+            const messageContainer = document.getElementById('message-container');
+            const successModal = document.getElementById('success-modal');
+            const closeModalBtn = document.getElementById('close-modal');
+            
+            contactForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Mostrar mensaje de envío
+                showMessage('Enviando mensaje...', 'success');
+                
+                // URL de Formspree (debes reemplazar con tu email)
+                const formspreeEndpoint = 'https://formspree.io/f/manjrzwk'; // ¡REEMPLAZA ESTO CON TU ENDPOINT!
+                
+                // Recopilar datos del formulario
+                const formData = new FormData(contactForm);
+                
+                // Enviar datos a Formspree
+                fetch(formspreeEndpoint, {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                })
+                .then(response => {
+                    if (response.ok) {
+                        showMessage('¡Gracias por tu mensaje! Me pondré en contacto contigo pronto.', 'success');
+                        contactForm.reset();
+                        // Mostrar modal de éxito
+                        successModal.style.display = 'flex';
+                    } else {
+                        showMessage('Hubo un error al enviar el mensaje. Por favor, inténtalo de nuevo más tarde.', 'error');
+                    }
+                })
+                .catch(error => {
+                    showMessage('Error de red. Por favor, verifica tu conexión a internet.', 'error');
+                });
+            });
+            
+            closeModalBtn.addEventListener('click', () => {
+              successModal.style.display = 'none';
+            });
+            
+            function showMessage(text, type) {
+                messageContainer.innerHTML = `<div class="message ${type}">${text}</div>`;
+                messageContainer.style.display = 'block';
+
+                // Posicionar el toast sobre el formulario
+                const form = document.getElementById('contact-form');
+                const rect = form.getBoundingClientRect();
+                messageContainer.style.position = 'absolute';
+                messageContainer.style.left = rect.left + window.scrollX + 'px';
+                messageContainer.style.top = rect.top + window.scrollY - 60 + 'px'; // 60px arriba del formulario
+                messageContainer.style.transform = 'none';
+                messageContainer.style.zIndex = '100000';
+
+                // Ocultar el mensaje después de 5 segundos
+                if (type === 'success') {
+                    setTimeout(() => {
+                        messageContainer.style.display = 'none';
+                    }, 5000);
+                }
+            }
         });
     </script>
 </body>
