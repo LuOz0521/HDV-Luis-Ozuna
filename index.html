@@ -982,19 +982,8 @@
             max-width: 90vw;
             pointer-events: none;
             transition: opacity 0.4s;
-        }
-
-        .message {
-            display: block;
-            padding: 15px 25px;
-            border-radius: 8px;
-            text-align: center;
-            font-size: 1.1rem;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.18);
-            animation: fadeIn 0.5s;
-            pointer-events: auto;
-            background: white;
-            opacity: 0.98;
+            position: static; /* <-- Cambia a static */
+            margin-top: 20px;
         }
 
         .ripple {
@@ -1573,15 +1562,7 @@
             function showMessage(text, type) {
                 messageContainer.innerHTML = `<div class="message ${type}">${text}</div>`;
                 messageContainer.style.display = 'block';
-
-                // Posicionar el toast sobre el formulario
-                const form = document.getElementById('contact-form');
-                const rect = form.getBoundingClientRect();
-                messageContainer.style.position = 'absolute';
-                messageContainer.style.left = rect.left + window.scrollX + 'px';
-                messageContainer.style.top = rect.top + window.scrollY - 60 + 'px'; // 60px arriba del formulario
-                messageContainer.style.transform = 'none';
-                messageContainer.style.zIndex = '100000';
+                messageContainer.style.position = 'static'; // <-- Añade esto
 
                 // Ocultar el mensaje después de 5 segundos
                 if (type === 'success') {
